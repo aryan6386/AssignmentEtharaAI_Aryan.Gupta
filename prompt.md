@@ -1,4 +1,4 @@
-MERN College Attendance Management System
+Prompt
 Project Overview
 Build a full-stack MERN College Attendance Management System for colleges to digitally manage student attendance, reduce manual register work, and provide a reliable platform for students, teachers, and college management.
 The project should include:
