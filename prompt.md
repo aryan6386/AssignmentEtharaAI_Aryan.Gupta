@@ -200,34 +200,51 @@ js
 }
 // status: ["Present", "Absent", "Late"]
 ________________________________________
-9. BACKEND API
-Create REST APIs for:
+Here is the detailed and specific version of the Backend API section:
+
+9. Backend APIs
 Authentication APIs
-•	Register user
-•	Login user
-•	Get logged-in user profile
-•	Logout user
+
+Register User — accepts name, email, password, and role, hashes the password using bcrypt, creates a new user in the database, and returns a success message
+Login User — accepts email and password, verifies credentials, generates a JWT token containing user ID and role, and returns the token with user details
+Get Logged-in User Profile — reads the JWT token from the request header, verifies it, and returns the current logged-in user's name, email, and role
+Logout User — clears the JWT token from the client side and ends the user session
+
+
 Admin APIs
-•	Add / Update / Delete student
-•	Add / Update / Delete teacher
-•	Create department, class, subject
-•	Assign teacher to subject
-•	Assign students to class
-•	View all records
-•	Generate reports
+
+Add Student — accepts student details like name, email, roll number, department, semester, section, and batch, creates a student profile, and also creates a linked user account with the student role
+Update Student — accepts updated student details by student ID and updates the matching student record in the database
+Delete Student — accepts a student ID, deletes the student profile, and also removes the linked user account from the database
+Add Teacher — accepts teacher details like name, email, employee ID, and department, creates a teacher profile, and also creates a linked user account with the teacher role
+Update Teacher — accepts updated teacher details by teacher ID and updates the matching teacher record in the database
+Delete Teacher — accepts a teacher ID, deletes the teacher profile, and also removes the linked user account from the database
+Create Department — accepts department name and code and saves a new department record in the database
+Create Class — accepts department, semester, section, and batch details and creates a new class record in the database
+Create Subject — accepts subject name, subject code, department, and semester and saves a new subject record in the database
+Assign Teacher to Subject — accepts a teacher ID and subject ID and links the teacher to that subject in the database
+Assign Students to Class — accepts a class ID and a list of student IDs and adds those students to the selected class
+View All Records — returns a complete list of all students, teachers, classes, subjects, and departments stored in the database
+Generate Reports — accepts filters like department, class, subject, or date range and returns a full attendance report for admin review and download
+
+
 Teacher APIs
-•	Get assigned classes and subjects
-•	Mark attendance
-•	Edit attendance
-•	View attendance history
-•	Generate class-wise report
-•	View low-attendance students
+
+Get Assigned Classes and Subjects — reads the teacher ID from the token and returns all classes and subjects currently assigned to that teacher
+Mark Attendance — accepts department, semester, section, subject, date, and a list of students with their attendance status (Present, Absent, Late) and saves the attendance record in the database
+Edit Attendance — accepts an attendance record ID and updated status values for students and updates the existing attendance record in the database
+View Attendance History — accepts filters like subject, class, or date and returns all past attendance records marked by that teacher
+Generate Class-wise Report — accepts a class ID and subject ID and returns a detailed attendance report for all students in that class for that subject
+View Low Attendance Students — reads the teacher's assigned classes and returns a list of students whose attendance percentage has fallen below 75%
+
+
 Student APIs
-•	View own profile
-•	View subject-wise attendance
-•	View overall attendance
-•	View attendance history
-•	Download report
+
+View Own Profile — reads the student ID from the token and returns the student's personal details like name, roll number, department, semester, section, and batch
+View Subject-wise Attendance — returns a breakdown of attendance for each subject showing total classes conducted, total present, total absent, total late, and attendance percentage per subject
+View Overall Attendance — calculates and returns the student's combined attendance percentage across all subjects
+View Attendance History — returns a date-wise list of all attendance records for the logged-in student showing subject, date, and status for each entry
+Download Report — generates and returns the student's complete attendance report as a downloadable PDF or CSV file containing subject-wise and overall attendance data
 ________________________________________
 10. REPORT GENERATION
 The system must generate:
